@@ -9,5 +9,9 @@
     height: 10px;
 }
 
+.selected {
+    background-color: white;
+}
+
 
 
