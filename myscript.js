@@ -1,5 +1,6 @@
 const screen = document.querySelector(".container");
 const selected = document.querySelectorAll(".pixel");
+const clearButton = document.getElementById("clearBtn");
 
 function createPixel(append, ...args) { 
     const pixel = document.createElement("div");
@@ -22,29 +23,36 @@ function selectPixel(item) {
         isMouseDown = false;
     });
 
-    item.addEventListener("mousedown", ()=> {
+    item.addEventListener("mousedown", () => {
         item.classList.add("selected");
         
     }) 
-    item.addEventListener("mousemove", ()=> {
+    item.addEventListener("mousemove", () => {
         if(isMouseDown) {
             item.classList.add("selected");
         }
     }) 
 }
 
+function clearCanvas() {
+    clearButton.addEventListener("click", ()=> {
+        const drawn = document.querySelectorAll(".selected");
+        drawn.forEach(e => {
+            e.classList.remove("selected");
+        })
+    })
+}
 
+function createCanvas(pixels, screenSize) {
+    const pixelSize = screenSize / pixels; 
+    screen.style.gridTemplateColumns = `repeat(${pixels}, ${pixelSize}px)`;
+    screen.style.gridTemplateRows = `repeat(${pixels}, ${pixelSize}px)`;
 
-function createCanvas(xPixels, yPixels) {
-    for(let i = 0; i < yPixels; i++) {
-        const columnId = "column-" + i;
-        createPixel(screen, "column", columnId);
-        const start = document.querySelector("." + columnId);
-        for(let j = 0; j < xPixels; j++) {
-            createPixel(start, "pixel");
-        }
+    for(let i = 0; i < pixels * pixels; i++) {
+        createPixel(screen, "pixel");
     }
 }
 
-createCanvas(64, 64); 
+createCanvas(64, 640); 
+clearCanvas(); 
 

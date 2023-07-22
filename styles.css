@@ -1,17 +1,58 @@
+body {
+    background-color: whitesmoke;
+}
+
+#wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 920px;
+}
+
+h1 {
+    color: rgb(210, 136, 0);
+    font-size: 36pt;
+    text-align: center;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: auto auto;
+    border: 40px solid red;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
 .container {
+    width: 640px;
+    height: 640px;
+    display: grid;
+}
+
+.settings {
+    width: 200px;
+    height: 640px;
+    border-right: 40px solid red;
+    background-color: red;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn {
+    font-size: 18pt;
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
 }
 
 .pixel {
-    border: 1px solid green;
-    background-color: black;
+    background-color: lightgray;
     width: 10px;
     height: 10px;
 }
 
 .selected {
-    background-color: white;
+    background-color: rgb(81, 81, 81);
 }
-
 
 
