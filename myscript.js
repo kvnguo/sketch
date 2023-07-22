@@ -1,47 +1,7 @@
 const screen = document.querySelector(".container");
-const selected = document.querySelectorAll(".pixel");
 const clearButton = document.getElementById("clearBtn");
-
-function createPixel(append, ...args) { 
-    const pixel = document.createElement("div");
-    for(let i = 0; i < args.length; i++) {
-         pixel.classList.add(args[i]); 
-    }
-    append.appendChild(pixel); 
-    selectPixel(pixel); 
-    
-}
-
-function selectPixel(item) {
-    let isMouseDown = false;
-
-    document.addEventListener("mousedown", () => {
-        isMouseDown = true;
-    });
-
-    document.addEventListener("mouseup", () => {
-        isMouseDown = false;
-    });
-
-    item.addEventListener("mousedown", () => {
-        item.classList.add("selected");
-        
-    }) 
-    item.addEventListener("mousemove", () => {
-        if(isMouseDown) {
-            item.classList.add("selected");
-        }
-    }) 
-}
-
-function clearCanvas() {
-    clearButton.addEventListener("click", ()=> {
-        const drawn = document.querySelectorAll(".selected");
-        drawn.forEach(e => {
-            e.classList.remove("selected");
-        })
-    })
-}
+const eraserButton = document.getElementById("eraserBtn");
+let toggleErase = false; 
 
 function createCanvas(pixels, screenSize) {
     const pixelSize = screenSize / pixels; 
@@ -49,10 +9,71 @@ function createCanvas(pixels, screenSize) {
     screen.style.gridTemplateRows = `repeat(${pixels}, ${pixelSize}px)`;
 
     for(let i = 0; i < pixels * pixels; i++) {
-        createPixel(screen, "pixel");
+        const pixel = document.createElement("div");
+        pixel.classList.add("pixel"); 
+        screen.appendChild(pixel); 
     }
 }
 
-createCanvas(64, 640); 
-clearCanvas(); 
+function clearCanvas() {
+    clearButton.addEventListener("click", ()=> {
+        const drawn = document.querySelectorAll(".selected");
+        drawn.forEach(e => {
+            e.classList.remove("selected");
+        });
+    });
+}
 
+function clickErase() {
+    eraserButton.addEventListener("click", ()=> {
+        if (toggleErase) {
+            toggleErase = false;
+            eraserButton.style.backgroundColor = "white"; 
+            eraserButton.style.color = "black";
+        }
+        else {
+            toggleErase = true; 
+            eraserButton.style.backgroundColor = "dimgray"; 
+            eraserButton.style.color = "white";
+        }
+    });
+}
+
+function pixelFunction() {
+    const selected = document.querySelectorAll(".pixel"); 
+    let isMouseDown = false; 
+    selected.forEach(e => {
+        e.addEventListener("click", () => {
+            if(toggleErase) {
+                e.classList.remove("selected");
+            }
+            else {
+                e.classList.add("selected");
+            }
+        });
+
+        e.addEventListener("mousemove", () => {
+            document.addEventListener("mousedown", () => {
+                isMouseDown = true;
+            });
+        
+            document.addEventListener("mouseup", () => {
+                isMouseDown = false;
+            });
+
+            if (isMouseDown) {
+                if(toggleErase) {
+                    e.classList.remove("selected");
+                }
+                else {
+                e.classList.add("selected");
+                }
+            }
+        });
+    });
+}
+
+createCanvas(128, 640); 
+clearCanvas(); 
+clickErase(); 
+pixelFunction();

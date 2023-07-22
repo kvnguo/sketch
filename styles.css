@@ -47,8 +47,8 @@ h1 {
 
 .pixel {
     background-color: lightgray;
-    width: 10px;
-    height: 10px;
+    width: 5px;
+    height: 5px;
 }
 
 .selected {
