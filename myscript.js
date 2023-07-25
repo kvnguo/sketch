@@ -1,6 +1,8 @@
 const screen = document.querySelector(".container");
 const clearButton = document.getElementById("clearBtn");
 const eraserButton = document.getElementById("eraserBtn");
+const slider = document.querySelector(".slider"); 
+const sliderValue = document.querySelector(".slidervalue"); 
 let toggleErase = false; 
 
 function createCanvas(pixels, screenSize) {
@@ -39,6 +41,69 @@ function clickErase() {
     });
 }
 
+function getSliderValue() {
+    switch (slider.value) {
+        case "0":
+            return 640; 
+
+        case "10":
+            return 160;
+
+        case "20":
+            return 40;
+        case "30":
+            return 20;
+
+        case "40":
+            return 10; 
+
+        case "50":
+            return 5;
+    } 
+}
+
+function getPixelNumber(pixelSize) {
+    switch (pixelSize) {
+        case 640:
+            return 1; 
+
+        case 160:
+            return 4; 
+
+        case 40:
+            return 16;
+
+        case 20:
+            return 32; 
+
+        case 10: 
+            return 64; 
+            
+        case 5: 
+            return 128; 
+    }
+}
+
+function changePixelSize(pixelSize)  {
+    const pixel = document.querySelectorAll(".pixel"); 
+    pixel.forEach(e => {
+        e.style.width = `${pixelSize}px`;
+        e.style.height = `${pixelSize}px`; 
+    });
+}
+
+function changeScreenSize() {
+    slider.addEventListener("input", ()=> {
+        const pixelSize = getSliderValue();
+        const pixelNumber = getPixelNumber(pixelSize); 
+        screen.textContent = ""; 
+        createCanvas(pixelNumber, 640);  
+        changePixelSize(pixelSize);
+        pixelFunction();
+        sliderValue.textContent = `${pixelNumber} x ${pixelNumber}`;
+    })
+}
+
 function pixelFunction() {
     const selected = document.querySelectorAll(".pixel"); 
     let isMouseDown = false; 
@@ -66,14 +131,19 @@ function pixelFunction() {
                     e.classList.remove("selected");
                 }
                 else {
-                e.classList.add("selected");
+                    e.classList.add("selected");
                 }
             }
         });
     });
 }
 
-createCanvas(128, 640); 
+
+createCanvas(32, 640); 
 clearCanvas(); 
 clickErase(); 
 pixelFunction();
+changeScreenSize(); 
+
+
+

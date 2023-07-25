@@ -1,3 +1,4 @@
+
 body {
     background-color: whitesmoke;
 }
@@ -47,12 +48,23 @@ h1 {
 
 .pixel {
     background-color: lightgray;
-    width: 5px;
-    height: 5px;
+    width: 20px;
+    height: 20px;
 }
 
 .selected {
     background-color: rgb(81, 81, 81);
+}
+
+.slidervalue {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 16pt;
+    padding-top: 5px;
+}
+
+.slider {
+    
 }
 
 
