@@ -3,7 +3,21 @@ const clearButton = document.getElementById("clearBtn");
 const eraserButton = document.getElementById("eraserBtn");
 const slider = document.querySelector(".slider"); 
 const sliderValue = document.querySelector(".slidervalue"); 
+const colorPicker = document.querySelector(".color");
+const hoverElement = document.querySelectorAll(".hover");
 let toggleErase = false; 
+
+function hoverFunction() {
+    hoverElement.forEach(e => {
+        e.addEventListener("mouseover", ()=> {
+            e.classList.add("hovered");
+        });
+
+        e.addEventListener("mouseout", ()=> {
+            e.classList.remove("hovered");
+        });
+    });
+}
 
 function createCanvas(pixels, screenSize) {
     const pixelSize = screenSize / pixels; 
@@ -19,9 +33,9 @@ function createCanvas(pixels, screenSize) {
 
 function clearCanvas() {
     clearButton.addEventListener("click", ()=> {
-        const drawn = document.querySelectorAll(".selected");
+        const drawn = document.querySelectorAll(".pixel");
         drawn.forEach(e => {
-            e.classList.remove("selected");
+            e.removeAttribute('style');
         });
     });
 }
@@ -110,10 +124,10 @@ function pixelFunction() {
     selected.forEach(e => {
         e.addEventListener("click", () => {
             if(toggleErase) {
-                e.classList.remove("selected");
+                e.removeAttribute('style');
             }
             else {
-                e.classList.add("selected");
+                e.style.backgroundColor = colorPicker.value;
             }
         });
 
@@ -128,10 +142,10 @@ function pixelFunction() {
 
             if (isMouseDown) {
                 if(toggleErase) {
-                    e.classList.remove("selected");
+                    e.removeAttribute('style');
                 }
                 else {
-                    e.classList.add("selected");
+                    e.style.backgroundColor = colorPicker.value;
                 }
             }
         });
@@ -144,6 +158,8 @@ clearCanvas();
 clickErase(); 
 pixelFunction();
 changeScreenSize(); 
+hoverFunction();
+
 
 
 
