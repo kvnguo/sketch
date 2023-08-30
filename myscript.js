@@ -35,7 +35,7 @@ function clearCanvas() {
     clearButton.addEventListener("click", ()=> {
         const drawn = document.querySelectorAll(".pixel");
         drawn.forEach(e => {
-            e.removeAttribute('style');
+            e.style.backgroundColor = "";
         });
     });
 }
@@ -124,7 +124,7 @@ function pixelFunction() {
     selected.forEach(e => {
         e.addEventListener("click", () => {
             if(toggleErase) {
-                e.removeAttribute('style');
+                e.style.backgroundColor = "";
             }
             else {
                 e.style.backgroundColor = colorPicker.value;
@@ -142,7 +142,7 @@ function pixelFunction() {
 
             if (isMouseDown) {
                 if(toggleErase) {
-                    e.removeAttribute('style');
+                    e.style.backgroundColor = "";
                 }
                 else {
                     e.style.backgroundColor = colorPicker.value;
